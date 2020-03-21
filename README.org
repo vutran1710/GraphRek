@@ -26,8 +26,18 @@ $ pipenv run dev
 
 * How to use
 1) Neo4j Database Web Client can be accessed at /localhost:7474/
-This web-based client provides visual details and Cyper CLI to interact with the current Database. Default
-authentication is *neo4j/test* for USER/PASSWORD. (Refer to /docker-compose.yml/)
+This web-based client provides visual details and Cyper CLI to interact with the current Database.
+To connect:
++ Type in the commandline located at the top of the *Web-Client*
+#+begin_src shell
+:server connect
+#+end_src
++ Change the *Connect URL* to *bolt://neo4j:test@localhost:7687* (as set in /config.ini/)
++ Authenticate with USERNAME / PASSWORD using:
+#+begin_src  code
+USER: neo4j
+PWD: test
+#+end_src
 
 2) Running Fastapi Application to:
    - create /labels/: *PUT* //thing/create-labels/

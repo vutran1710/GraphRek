@@ -15,8 +15,6 @@ services:
   redis:
     image: redis:5-alpine
     container_name: graphrekis
-    env_file:
-      - .services.env
     volumes:
       - ./.redis:/bitnami/redis/data
     ports:

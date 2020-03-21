@@ -1,9 +1,8 @@
 """ Utils & setups
 """
-from typing import Callable
 from os import environ
 from configparser import ConfigParser
-from logzero import logger, loglevel
+from logzero import loglevel
 from pydantic import BaseModel
 
 
@@ -31,35 +30,6 @@ def load_config() -> dict:
     config = AppConfig(**config).dict()
     loglevel(level=config['LOG_LEVEL'])
     return config
-
-
-def deprecated(_describe):
-    """ Annotation for deprecated functions
-    """
-    def decorator(_func):
-        def wrapped(*_args, **_kwargs):
-            return None
-
-        return wrapped
-
-    return decorator
-
-
-def shouterr(message: str):
-    """ Annotate err log on Exception
-    """
-    def decorator(func: Callable):
-        def wrapped(*args, **kwargs):
-            try:
-                return func(*args, **kwargs)
-            except Exception as err:
-                logger.error('<<< %s >>', message.upper())
-                logger.error(err)
-                return None
-
-        return wrapped
-
-    return decorator
 
 
 CONFIG = load_config()

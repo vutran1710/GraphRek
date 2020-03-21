@@ -3,11 +3,12 @@
 from fastapi import FastAPI, Depends
 from aioredis import create_redis_pool
 from neo4j import GraphDatabase, basic_auth
-from middlewares import internal_only
-from apis import demo
+
+from utils import CONFIG
 from conn.redis import RedisClient
 from conn.neo4j import NeoClient
-from utils import CONFIG
+from apis import demo
+from middlewares import internal_only
 
 app = FastAPI()
 
