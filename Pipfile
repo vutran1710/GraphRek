@@ -19,6 +19,7 @@ fastapi = "*"
 uvicorn = "*"
 python-multipart = "*"
 neomodel = "*"
+neo4j = "*"
 
 [requires]
 python_version = "3.7"

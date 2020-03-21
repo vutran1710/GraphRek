@@ -2,7 +2,7 @@
 """
 from fastapi import FastAPI, Depends
 from aioredis import create_redis_pool
-from neomodel import db, install_all_labels
+from neomodel import db, install_all_labels, config
 
 from middlewares import internal_only
 from apis import demo
@@ -19,6 +19,7 @@ async def init_conns():
     """
     pool = await create_redis_pool(CONFIG['REDIS_URL'])
     RedisClient(pool)
+    config.ENCRYPTED_CONNECTION = False
     db.set_connection(CONFIG['NEO4J_URL'])
     install_all_labels()
 
