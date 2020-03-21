@@ -1,0 +1,15 @@
+{
+  "generator-pywork": {
+    "promptValues": {
+      "project": "Graphrecom",
+      "git_url": "",
+      "connections": [
+        "aioredis"
+      ],
+      "frameworks": [
+        "fastapi"
+      ],
+      "extras": []
+    }
+  }
+}

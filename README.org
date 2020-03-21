@@ -1,0 +1,22 @@
+#+OPTIONS: ^:nil
+#+TITLE: GraphRek
+#+DATE: <2018-07-31 Tue>
+#+AUTHOR: Vu Tran
+#+EMAIL: me@vutr.io`
+
+* Content                                                               :TOC:
+- [[#introduction][Introduction]]
+- [[#first][First]]
+
+* Introduction
+Demo how to use Graphdb for recommendation system
+
+* First
+#+begin_src shell
+$ docker-compose up -d
+$ pipenv install --dev
+#+end_src
+
+#+begin_src shell
+$ pipenv run dev
+#+end_src
