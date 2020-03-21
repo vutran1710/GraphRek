@@ -2,11 +2,12 @@
 """
 from fastapi import FastAPI, Depends
 from aioredis import create_redis_pool
-from neomodel import db
+from neomodel import db, install_all_labels
 
 from middlewares import internal_only
 from apis import demo
 from conn.redis import RedisClient
+from conn.db_models import *
 from utils import CONFIG
 
 app = FastAPI()
@@ -19,6 +20,7 @@ async def init_conns():
     pool = await create_redis_pool(CONFIG['REDIS_URL'])
     RedisClient(pool)
     db.set_connection(CONFIG['NEO4J_URL'])
+    install_all_labels()
 
 
 app.include_router(
