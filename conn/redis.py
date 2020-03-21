@@ -1,13 +1,7 @@
-from typing import Union
-from pydantic import BaseModel
-
+"""Redis module
+"""
+from typing import List
 from decorator import singleton
-
-
-class SampleParam(BaseModel):
-    something: str
-    some_key: str
-    some_value: int
 
 
 @singleton
@@ -21,16 +15,11 @@ class RedisClient:
         """
         self.pool = async_pool
 
-    async def do_redis_shjt(self, some_map: str = 'something') -> Union[int, str]:
-        """Example
+    async def get_keys(self, some_map: str) -> List[str]:
+        """Get all keys from hashmap
         """
-        cardinality = await self.pool.zcard(some_map)
-        next_do = 'do_next'
-        return cardinality, next_do
+        if not some_map:
+            return []
 
-    async def do_another_shjt(self, param: SampleParam) -> bool:
-        """Example with Pydantic param model checking
-        """
-        something, some_key, some_value = param['something'], param['some_key'], param['some_value']
-        result = await self.pool.hset(something, some_key, some_value)
-        return bool(result)
+        keys = self.pool.hkeys(some_map)
+        return keys

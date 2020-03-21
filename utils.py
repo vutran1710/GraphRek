@@ -1,17 +1,23 @@
-from os import environ
-from logzero import logger, loglevel
-from configparser import SafeConfigParser
+""" Utils & setups
+"""
 from typing import Callable
+from os import environ
+from configparser import SafeConfigParser
+from logzero import logger, loglevel
 from pydantic import BaseModel
 
 
 class AppConfig(BaseModel):
+    """ Defined required & config Fields for EnvVars
+    """
     LOG_LEVEL: int
     SECRET_KEY: str
     REDIS_URL: str
 
 
 def load_config() -> dict:
+    """ Load config from Env
+    """
     config = {}
     stage = environ.get('STAGE', 'DEVELOPMENT').upper()
     parser = SafeConfigParser()
@@ -27,9 +33,11 @@ def load_config() -> dict:
     return config
 
 
-def deprecated(describe):
-    def decorator(func):
-        def wrapped(*args, **kwargs):
+def deprecated(_describe):
+    """ Annotation for deprecated functions
+    """
+    def decorator(_func):
+        def wrapped(*_args, **_kwargs):
             return None
 
         return wrapped
@@ -38,6 +46,8 @@ def deprecated(describe):
 
 
 def shouterr(message: str):
+    """ Annotate err log on Exception
+    """
     def decorator(func: Callable):
         def wrapped(*args, **kwargs):
             try:

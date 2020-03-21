@@ -12,8 +12,7 @@ app = FastAPI()
 async def init_conns():
     """Init external connections & middlewares
     """
-    conn = {}
-    conn["redis"] = RedisClient(CONFIG)
+    RedisClient(CONFIG)
 
 
 app.include_router(
@@ -25,4 +24,3 @@ app.include_router(
         "message": "Not found"
     }},
 )
-

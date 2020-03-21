@@ -1,13 +1,16 @@
+""" Demo API
+"""
 from fastapi import APIRouter
-from models import SomePayload
+from models import GetKeysPayload
 from conn.redis import RedisClient
-from utils import CONFIG
 
 router = APIRouter()
-redis = RedisClient(CONFIG)
 
 
-@router.get("/get-something", response_model=SomePayload)
-async def get_best_posts(limit: int):
-    payload = await redis.do_some_redis_shit(limit)
+@router.get("/get-keys", response_model=GetKeysPayload)
+async def get_best_posts():
+    """ Get sample keys from hashmap for demo
+    """
+    redis: RedisClient = RedisClient(...)
+    payload = await redis.get_keys('test-map')
     return payload
