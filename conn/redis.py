@@ -21,5 +21,5 @@ class RedisClient:
         if not some_map:
             return []
 
-        keys = self.pool.hkeys(some_map)
+        keys = await self.pool.hkeys(some_map)
         return keys

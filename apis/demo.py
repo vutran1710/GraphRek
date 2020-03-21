@@ -1,5 +1,6 @@
 """ Demo API
 """
+from typing import List
 from fastapi import APIRouter
 from models import GetKeysPayload
 from conn.redis import RedisClient
@@ -12,5 +13,5 @@ async def get_best_posts():
     """ Get sample keys from hashmap for demo
     """
     redis: RedisClient = RedisClient(...)
-    payload = await redis.get_keys('test-map')
-    return payload
+    payload: List[str] = await redis.get_keys('test-map')
+    return {'data': payload}
