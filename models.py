@@ -21,3 +21,10 @@ class TokenModel(BaseModel):
     """
     access_token: str
     token_type: str
+
+
+class PostMeta(BaseModel):
+    """ PostMeta model
+    """
+    id: str
+    score: int

@@ -2,12 +2,11 @@
 """
 from fastapi import FastAPI, Depends
 from aioredis import create_redis_pool
-from neomodel import db, install_all_labels, config
-
+from neo4j import GraphDatabase, basic_auth
 from middlewares import internal_only
 from apis import demo
 from conn.redis import RedisClient
-from conn.db_models import *
+from conn.neo4j import NeoClient
 from utils import CONFIG
 
 app = FastAPI()
@@ -19,16 +18,20 @@ async def init_conns():
     """
     pool = await create_redis_pool(CONFIG['REDIS_URL'])
     RedisClient(pool)
-    config.ENCRYPTED_CONNECTION = False
-    db.set_connection(CONFIG['NEO4J_URL'])
-    install_all_labels()
+    neourl = CONFIG['NEO4J_URL']
+    driver = GraphDatabase.driver(
+        neourl,
+        auth=basic_auth("neo4j", "test"),
+        encrypted=False,
+    )
+    NeoClient(driver)
 
 
 app.include_router(
     demo.router,
     prefix="/thing",
     tags=["Thing"],
-    dependencies=[Depends(internal_only)],
+    # dependencies=[Depends(internal_only)],
     responses={404: {
         "message": "Not found"
     }},
