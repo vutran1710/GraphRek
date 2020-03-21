@@ -18,6 +18,8 @@ aioredis = "*"
 fastapi = "*"
 uvicorn = "*"
 python-multipart = "*"
+neomodel = "*"
+
 [requires]
 python_version = "3.7"
 

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f523b6a3f7d74777870fc834bd10a6b4b678ed032f139558d90de3aa08c59353"
+            "sha256": "1ec2187d1d5a1611868b042c0a0f1bd165c17ab5aa02caa29ef572569987cef6"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -124,6 +124,31 @@
             "index": "pypi",
             "version": "==1.5.0"
         },
+        "neo4j-driver": {
+            "hashes": [
+                "sha256:7138899da14f6b0042e3a0097441a96e6a8f0303de5d1e0cd08551caa2455543"
+            ],
+            "version": "==1.7.2"
+        },
+        "neobolt": {
+            "hashes": [
+                "sha256:ca4e87679fe3ed39aec23638658e02dbdc6bbc3289a04e826f332e05ab32275d"
+            ],
+            "version": "==1.7.16"
+        },
+        "neomodel": {
+            "hashes": [
+                "sha256:1fb666e46ada72bc0f5ac9e6adf4271aa669e9757eb1f14a586f1cd224e5a8c1"
+            ],
+            "index": "pypi",
+            "version": "==3.3.2"
+        },
+        "neotime": {
+            "hashes": [
+                "sha256:4e0477ba0f24e004de2fa79a3236de2bd941f20de0b5db8d976c52a86d7363eb"
+            ],
+            "version": "==1.7.4"
+        },
         "pydantic": {
             "hashes": [
                 "sha256:012c422859bac2e03ab3151ea6624fecf0e249486be7eb8c6ee69c91740c6752",
@@ -150,6 +175,13 @@
             ],
             "index": "pypi",
             "version": "==0.0.5"
+        },
+        "pytz": {
+            "hashes": [
+                "sha256:1c557d7d0e871de1f5ccd5833f60fb2550652da6be2693c1e02300743d21500d",
+                "sha256:b02c06db6cf09c12dd25137e563b31700d3b80fcc4ad23abb7a315f2789819be"
+            ],
+            "version": "==2019.3"
         },
         "six": {
             "hashes": [

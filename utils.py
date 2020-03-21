@@ -11,7 +11,7 @@ class AppConfig(BaseModel):
     """ Defined required & config Fields for EnvVars
     """
     LOG_LEVEL: int
-    SECRET_KEY: str
+    NEO4J_URL: str
     REDIS_URL: str
 
 
