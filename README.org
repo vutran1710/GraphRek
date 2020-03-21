@@ -6,12 +6,15 @@
 
 * Content                                                               :TOC:
 - [[#introduction][Introduction]]
-- [[#first][First]]
+- [[#setting-up][Setting up]]
+- [[#how-to-use][How to use]]
 
 * Introduction
-Demo how to use Graphdb for recommendation system
+This is a demo how to use Graphdb /Neo4j/ for a recommendation system.
+In this demo, there will be /post/ with /labels/ to be created and stored as a graph database.
+Then we can use Cyper to query posts with related /labels/.
 
-* First
+* Setting up
 #+begin_src shell
 $ docker-compose up -d
 $ pipenv install --dev
@@ -20,3 +23,12 @@ $ pipenv install --dev
 #+begin_src shell
 $ pipenv run dev
 #+end_src
+
+* How to use
+1) Neo4j Database Web Client can be accessed at /localhost:7474/
+This web-based client provides visual details and Cyper CLI to interact with the current Database. Default
+authentication is *neo4j/test* for USER/PASSWORD. (Refer to /docker-compose.yml/)
+
+2) Running Fastapi Application to:
+   - create /labels/: *PUT* //thing/create-labels/
+   - create /posts/: *PUT* //thing/create-posts?label=some-label/
