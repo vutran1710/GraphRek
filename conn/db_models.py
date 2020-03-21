@@ -12,9 +12,9 @@ from neomodel import (
 class Post(StructuredNode):
     id = StringProperty(unique_index=True, required=True)
     score = IntegerProperty(required=True)
-    has_label = RelationshipTo('Label', 'HAS_LABEL', cardinality=ZeroOrMore)
+    has_label = RelationshipTo('Label', 'HAS_LABEL')
 
 
 class Label(StructuredNode):
     name = StringProperty(unique_index=True, required=True)
-    has_post = RelationshipFrom('Post', 'HAS_POST', cardinality=ZeroOrMore)
+    has_post = RelationshipFrom('Post', 'HAS_POST')

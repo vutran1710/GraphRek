@@ -2,7 +2,7 @@
 """
 from typing import Callable
 from os import environ
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 from logzero import logger, loglevel
 from pydantic import BaseModel
 
@@ -20,7 +20,7 @@ def load_config() -> dict:
     """
     config = {}
     stage = environ.get('STAGE', 'DEVELOPMENT').upper()
-    parser = SafeConfigParser()
+    parser = ConfigParser()
     parser.read('config.ini')
 
     for k, v in parser.items(stage):

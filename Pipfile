@@ -17,7 +17,6 @@ pydantic = "*"
 aioredis = "*"
 fastapi = "*"
 uvicorn = "*"
-python-multipart = "*"
 neomodel = "*"
 neo4j = "*"
 
