@@ -1,9 +1,16 @@
 """ Neo4j Client
 """
 from typing import List
+from time import time
+from random import randrange
 from logzero import logger
 from models import PostMeta
 from decorator import singleton
+
+from migrate import (
+    unique_id,
+    unique_label,
+)
 
 
 @singleton
@@ -14,6 +21,12 @@ class NeoClient:
 
     def __init__(self, driver):
         self.db = driver
+        try:
+            with self.db.session() as session:
+                session.run(unique_id)
+                session.run(unique_label)
+        except Exception as err:
+            logger.warning('Constraint already exist!')
 
     def create_labels(self, labels: List[str]):
         """ creating Labels
@@ -40,7 +53,7 @@ class NeoClient:
 
         query = """
         MATCH (lab:Label {name:$label})
-        CREATE (:Post {id:$post_id, score:$post_score})-[:LIKES]->(lab)
+        CREATE (:Post {id:$post_id, score:$post_score, created_at:$created_at})-[:LIKES]->(lab)
         RETURN 1
         """
 
@@ -57,8 +70,13 @@ class NeoClient:
                         query,
                         post_id=post.id,
                         post_score=post.score,
+                        created_at=int(time()) -
+                        randrange(1, 12) * 60 * 60 * 1000,
                         label=label,
                     )
                     counter += 1
 
             return counter
+
+    def query_posts_by_labels(self, labels):
+        pass
