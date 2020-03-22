@@ -2,6 +2,7 @@
 """
 from typing import List
 from fastapi import APIRouter, Query
+from logzero import logger  # noqa
 from models import GetKeysPayload, PostMeta
 from conn.redis import RedisClient
 from conn.neo4j import NeoClient
@@ -34,3 +35,13 @@ async def create_posts(label: str, posts: List[PostMeta]):
     neo: NeoClient = NeoClient(...)
     count = neo.create_posts(posts, label)
     return count
+
+
+@router.get("/get-posts", response_model=List[PostMeta])
+async def get_posts(labels: List[str] = Query(None)):
+    """ query posts by labels
+    """
+    neo: NeoClient = NeoClient(...)
+    posts = neo.query_posts_by_labels(labels, 10, 3)
+    logger.info('Queried: %s', posts)
+    return posts

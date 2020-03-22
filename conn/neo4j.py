@@ -78,5 +78,56 @@ class NeoClient:
 
             return counter
 
-    def query_posts_by_labels(self, labels):
-        pass
+    def query_posts_by_labels(
+        self,
+        labels: List[str],
+        limit: int,
+        limit_recommend: int,
+    ):
+        query_related_posts = """
+        MATCH (p:Post)-[:LIKES]->(:Label {name:$label})
+        RETURN p
+        ORDER BY p.score DESC
+        LIMIT $limit
+        """
+
+        query_recommended = """
+        MATCH (l:Label {name:$label})<-[:LIKES]-(:Post)-[:LIKES]->(xl:Label)<-[:LIKES]-(p:Post)
+        WHERE NOT (xl.name = $label) AND NOT (p)-[:LIKES]-(l) AND NOT p.id IN $found_posts
+        RETURN DISTINCT p
+        ORDER BY p.score DESC
+        LIMIT $limit_recommend
+        """
+
+        posts = []
+        unrelated = []
+
+        with self.db.session() as session:
+            for label in labels:
+                # logger.warning('Found posts: %s', [p['id'] for p in posts])
+                result = session.run(
+                    query_related_posts,
+                    label=label,
+                    limit=limit,
+                )
+
+                # logger.warning('Collect: %s', result.values())
+                for item in result.values():
+                    post = dict(item[0].items())
+                    post.update({'label': label})
+                    posts.append(post)
+
+                result = session.run(
+                    query_recommended,
+                    label=label,
+                    limit_recommend=limit_recommend,
+                    found_posts=unrelated,
+                )
+
+                # logger.warning('Collect: %s', result.values())
+                for item in result.values():
+                    post = dict(item[0].items())
+                    posts.append(post)
+                    unrelated.append(post['id'])
+
+            return posts

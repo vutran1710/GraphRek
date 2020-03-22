@@ -1,6 +1,6 @@
 """ Pydantic Models for data modelling & verifcation
 """
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
 
@@ -28,3 +28,5 @@ class PostMeta(BaseModel):
     """
     id: str
     score: int
+    created_at: Optional[int]
+    label: Optional[str]
