@@ -11,8 +11,8 @@ router = APIRouter()
 
 
 @router.get("/get-keys", response_model=GetKeysPayload)
-async def get_best_posts():
-    """ Get sample keys from hashmap for demo
+async def get_keys():
+    """ Example redis call
     """
     redis: RedisClient = RedisClient(...)
     payload: List[str] = await redis.get_keys('test-map')
@@ -21,7 +21,7 @@ async def get_best_posts():
 
 @router.put("/create-labels")
 async def create_label(labels: List[str] = Query(None)):
-    """ create label with post
+    """ Create distinct labels
     """
     neo: NeoClient = NeoClient(...)
     count = neo.create_labels(labels)
@@ -30,7 +30,7 @@ async def create_label(labels: List[str] = Query(None)):
 
 @router.put("/create-posts")
 async def create_posts(label: str, posts: List[PostMeta]):
-    """ create posts
+    """ Create Post with label
     """
     neo: NeoClient = NeoClient(...)
     count = neo.create_posts(posts, label)
@@ -39,9 +39,9 @@ async def create_posts(label: str, posts: List[PostMeta]):
 
 @router.get("/get-posts", response_model=List[PostMeta])
 async def get_posts(labels: List[str] = Query(None)):
-    """ query posts by labels
+    """ Query posts by labels
     """
     neo: NeoClient = NeoClient(...)
     posts = neo.query_posts_by_labels(labels, 10, 3)
-    logger.info('Queried: %s', posts)
+    # logger.info('Queried: %s', posts)
     return posts

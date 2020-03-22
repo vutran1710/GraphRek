@@ -39,6 +39,29 @@ USER: neo4j
 PWD: test
 #+end_src
 
-2) Running Fastapi Application to:
-   - create /labels/: *PUT* //thing/create-labels/
-   - create /posts/: *PUT* //thing/create-posts?label=some-label/
+2) Running Fastapi Application, go to *localhost:8000/docs* for api usage:
++ Create /labels/: *PUT* -> ~/thing/create-labels~
+
+  Create some distinct labels first, eg: ~food, travel, blog, technology, music~ etc
+
++ Create /posts/: *PUT* -> ~/thing/create-posts?label=some-label~
+
+  Create some posts for a specific label. A single post can use multiple labels *(M2M model)*
+Post data required:
+#+begin_src shell
+{
+  "id": "some-random-id",
+  "score": 1999 # score of the post
+}
+#+end_src
+
++ Query posts by specific labels: *GET* -> ~/thing/get-posts?label=some-label~
+
+Calling this api will query posts that are labelled with the specified labels, order by the posts' scores.
+At the same time, it will return some more recommended posts with indirect relation to the queried labels.
+
+The relationship can be seen as: (Ref. to ~conn/neo4j.py~)
+
+#+begin_src shell
+(specified_label)<--(direct_related_post)-->(random_label)<--(recommended_posts)-//->(specified_label)
+#+end_src
